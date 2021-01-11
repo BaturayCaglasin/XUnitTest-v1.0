@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium.Interactions;
 
-namespace NUnitTest_Logiwa_v1._0
+namespace XUnitTest_Logiwa_v1._0
 {
 	public class Inventory : Base
 	{
@@ -48,282 +48,295 @@ namespace NUnitTest_Logiwa_v1._0
 		[Fact]
 		public void AddInventoryFromUpperBar()
 		{
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+			using (var driver = new ChromeDriver())
+			{
+				WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
-			driver.FindElement(InventoryScreenButton).Click();
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/inventory/list"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryButton)));
-			driver.FindElement(addInventoryButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((warehouseButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((warehouseButton)));
-			driver.FindElement(warehouseButton).Click();
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((selectWarehouseButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((selectWarehouseButton)));
-			driver.FindElement(selectWarehouseButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				driver.FindElement(InventoryScreenButton).Click();
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/inventory/list"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryButton)));
+				driver.FindElement(addInventoryButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((warehouseButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((warehouseButton)));
+				driver.FindElement(warehouseButton).Click();
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((selectWarehouseButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((selectWarehouseButton)));
+				driver.FindElement(selectWarehouseButton).Click();
+				Thread.Sleep(3000);
 
-			//location
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((LocationCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((LocationCombobox)));
-			driver.FindElement(LocationCombobox).Click();
-
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddLocationToCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddLocationToCombobox)));
-			driver.FindElement(AddLocationToCombobox).Click();
-			driver.FindElement(AddLocationToCombobox).SendKeys("Default Warehouse Location");
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddedLocation)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddedLocation)));
-			driver.FindElement(AddedLocation).Click();
-
-			//product
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryCombobox)));
-			driver.FindElement(addInventoryCombobox).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryField)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryField)));
-			driver.FindElement(addInventoryField).Click();
-			driver.FindElement(addInventoryField).SendKeys("sku");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addedProduct)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addedProduct)));
-			driver.FindElement(addedProduct).Click();
+				//location
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((LocationCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((LocationCombobox)));
+				driver.FindElement(LocationCombobox).Click();
 
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((quantityField)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
-			driver.FindElement(quantityField).SendKeys("1000");
-			Thread.Sleep(1000);
-			; wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((saveButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((saveButton)));
-			driver.FindElement(saveButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddLocationToCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddLocationToCombobox)));
+				driver.FindElement(AddLocationToCombobox).Click();
+				driver.FindElement(AddLocationToCombobox).SendKeys("Default Warehouse Location");
+
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddedLocation)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddedLocation)));
+				driver.FindElement(AddedLocation).Click();
+
+				//product
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryCombobox)));
+				driver.FindElement(addInventoryCombobox).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryField)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryField)));
+				driver.FindElement(addInventoryField).Click();
+				driver.FindElement(addInventoryField).SendKeys("sku");
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addedProduct)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addedProduct)));
+				driver.FindElement(addedProduct).Click();
 
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully add inventory."), actualvalue + " doesn't contains");
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((quantityField)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
+				driver.FindElement(quantityField).SendKeys("1000");
+				Thread.Sleep(1000);
+				; wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((saveButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((saveButton)));
+				driver.FindElement(saveButton).Click();
+
+
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
+				Assert.True(actualvalue.Contains("You have successfully add inventory."), actualvalue + " doesn't contains");
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+			}
 		}
 
 		[Fact]
 		public void DeleteInventoryFromUpperBar()
 		{
+			using (var driver = new ChromeDriver())
+			{
 
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+				WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
-			driver.FindElement(InventoryScreenButton).Click();
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/inventory/list"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((RemoveInventoryButton)));
-			driver.FindElement(RemoveInventoryButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((warehouseButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((warehouseButton)));
-			driver.FindElement(warehouseButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				driver.FindElement(InventoryScreenButton).Click();
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/inventory/list"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((RemoveInventoryButton)));
+				driver.FindElement(RemoveInventoryButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((warehouseButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((warehouseButton)));
+				driver.FindElement(warehouseButton).Click();
+				Thread.Sleep(3000);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((selectWarehouseButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((selectWarehouseButton)));
-			driver.FindElement(selectWarehouseButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((selectWarehouseButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((selectWarehouseButton)));
+				driver.FindElement(selectWarehouseButton).Click();
+				Thread.Sleep(3000);
 
-			//location
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((LocationCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((LocationCombobox)));
-			driver.FindElement(LocationCombobox).Click();
-
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddLocationToCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddLocationToCombobox)));
-			driver.FindElement(AddLocationToCombobox).Click();
-			driver.FindElement(AddLocationToCombobox).SendKeys("Default Warehouse Location");
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddedLocation)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddedLocation)));
-			driver.FindElement(AddedLocation).Click();
-
-			//product
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryCombobox)));
-			driver.FindElement(addInventoryCombobox).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryField)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryField)));
-			driver.FindElement(addInventoryField).Click();
-			driver.FindElement(addInventoryField).SendKeys("sku");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addedProduct)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addedProduct)));
-			driver.FindElement(addedProduct).Click();
+				//location
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((LocationCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((LocationCombobox)));
+				driver.FindElement(LocationCombobox).Click();
 
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((quantityField)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
-			driver.FindElement(quantityField).SendKeys("1");
-			Thread.Sleep(1000);
-			; wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((saveButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((saveButton)));
-			driver.FindElement(saveButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddLocationToCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddLocationToCombobox)));
+				driver.FindElement(AddLocationToCombobox).Click();
+				driver.FindElement(AddLocationToCombobox).SendKeys("Default Warehouse Location");
+
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddedLocation)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddedLocation)));
+				driver.FindElement(AddedLocation).Click();
+
+				//product
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryCombobox)));
+				driver.FindElement(addInventoryCombobox).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryField)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryField)));
+				driver.FindElement(addInventoryField).Click();
+				driver.FindElement(addInventoryField).SendKeys("sku");
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addedProduct)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addedProduct)));
+				driver.FindElement(addedProduct).Click();
 
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully remove inventory."), actualvalue + " doesn't contains");
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((quantityField)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
+				driver.FindElement(quantityField).SendKeys("1");
+				Thread.Sleep(1000);
+				; wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((saveButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((saveButton)));
+				driver.FindElement(saveButton).Click();
 
+
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
+				Assert.True(actualvalue.Contains("You have successfully remove inventory."), actualvalue + " doesn't contains");
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+
+			}
 		}
-
 		[Fact]
 		public void DeleteMoreInventoryFromUpperBar()
 		{
+			using (var driver = new ChromeDriver())
+			{
 
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+				WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
-			driver.FindElement(InventoryScreenButton).Click();
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/inventory/list"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((RemoveInventoryButton)));
-			driver.FindElement(RemoveInventoryButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((warehouseButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((warehouseButton)));
-			driver.FindElement(warehouseButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				driver.FindElement(InventoryScreenButton).Click();
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/inventory/list"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((RemoveInventoryButton)));
+				driver.FindElement(RemoveInventoryButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((warehouseButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((warehouseButton)));
+				driver.FindElement(warehouseButton).Click();
+				Thread.Sleep(3000);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((selectWarehouseButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((selectWarehouseButton)));
-			driver.FindElement(selectWarehouseButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((selectWarehouseButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((selectWarehouseButton)));
+				driver.FindElement(selectWarehouseButton).Click();
+				Thread.Sleep(3000);
 
-			//location
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((LocationCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((LocationCombobox)));
-			driver.FindElement(LocationCombobox).Click();
-
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddLocationToCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddLocationToCombobox)));
-			driver.FindElement(AddLocationToCombobox).Click();
-			driver.FindElement(AddLocationToCombobox).SendKeys("Default Warehouse Location");
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddedLocation)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddedLocation)));
-			driver.FindElement(AddedLocation).Click();
-
-			//product
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryCombobox)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryCombobox)));
-			driver.FindElement(addInventoryCombobox).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryField)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryField)));
-			driver.FindElement(addInventoryField).Click();
-			driver.FindElement(addInventoryField).SendKeys("sku");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addedProduct)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addedProduct)));
-			driver.FindElement(addedProduct).Click();
+				//location
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((LocationCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((LocationCombobox)));
+				driver.FindElement(LocationCombobox).Click();
 
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((quantityField)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
-			driver.FindElement(quantityField).SendKeys("100000");
-			Thread.Sleep(1000);
-			; wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((saveButton)));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((saveButton)));
-			driver.FindElement(saveButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddLocationToCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddLocationToCombobox)));
+				driver.FindElement(AddLocationToCombobox).Click();
+				driver.FindElement(AddLocationToCombobox).SendKeys("Default Warehouse Location");
+
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((AddedLocation)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddedLocation)));
+				driver.FindElement(AddedLocation).Click();
+
+				//product
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryCombobox)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryCombobox)));
+				driver.FindElement(addInventoryCombobox).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addInventoryField)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addInventoryField)));
+				driver.FindElement(addInventoryField).Click();
+				driver.FindElement(addInventoryField).SendKeys("sku");
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((addedProduct)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addedProduct)));
+				driver.FindElement(addedProduct).Click();
 
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//span[contains(.,'MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity.')]")));
-			IWebElement AssertInput = driver.FindElement(By.XPath("//span[contains(.,'MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity.')]"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
-			string actualvalue = driver.FindElement(By.XPath("//span[contains(.,'MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity.')]")).Text;
-			Assert.True(actualvalue.Contains("MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity."), actualvalue + " doesn't contains");
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((quantityField)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
+				driver.FindElement(quantityField).SendKeys("100000");
+				Thread.Sleep(1000);
+				; wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible((saveButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((saveButton)));
+				driver.FindElement(saveButton).Click();
 
+
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//span[contains(.,'MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity.')]")));
+				IWebElement AssertInput = driver.FindElement(By.XPath("//span[contains(.,'MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity.')]"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				string actualvalue = driver.FindElement(By.XPath("//span[contains(.,'MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity.')]")).Text;
+				Assert.True(actualvalue.Contains("MyLogiwa does not allow negative inventory. You can not remove more than existing inventory quantity."), actualvalue + " doesn't contains");
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+
+			}
 		}
 
 		[Fact]
 		public void AdjustInventoryPos()
 		{
+			using (var driver = new ChromeDriver())
+			{
+				WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				driver.FindElement(InventoryScreenButton).Click();
+				Thread.Sleep(3000);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
-			driver.FindElement(InventoryScreenButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("tr:nth-child(1) > td:nth-child(1)")));
+				Actions builder = new Actions(driver);
+				IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(1)"));
+				builder.MoveToElement(element).Build().Perform();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(adjustInventoryButton));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((adjustInventoryButton)));
+				driver.FindElement(adjustInventoryButton).Click();
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("tr:nth-child(1) > td:nth-child(1)")));
-			Actions builder = new Actions(driver);
-			IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(1)"));
-			builder.MoveToElement(element).Build().Perform();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(adjustInventoryButton));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((adjustInventoryButton)));
-			driver.FindElement(adjustInventoryButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(quantityField));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
+				driver.FindElement(quantityField).SendKeys("1000");
+				Thread.Sleep(1000);
+				driver.FindElement(saveButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(FirstProduct));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((FirstProduct)));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(quantityField));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
-			driver.FindElement(quantityField).SendKeys("1000");
-			Thread.Sleep(1000);
-			driver.FindElement(saveButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(FirstProduct));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((FirstProduct)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
+				Assert.True(actualvalue.Contains("You have successfully made an adjustment."), actualvalue + " doesn't contains");
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully made an adjustment."), actualvalue + " doesn't contains");
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
-
+			}
 		}
 
 		[Fact]
 		public void AdjustInventoryNeg()
 		{
+			using (var driver = new ChromeDriver())
+			{
 
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+				WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
-			driver.FindElement(InventoryScreenButton).Click();
-			Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				driver.FindElement(InventoryScreenButton).Click();
+				Thread.Sleep(3000);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("tr:nth-child(1) > td:nth-child(1)")));
-			Actions builder = new Actions(driver);
-			IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(1)"));
-			builder.MoveToElement(element).Build().Perform();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(adjustInventoryButton));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((adjustInventoryButton)));
-			driver.FindElement(adjustInventoryButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("tr:nth-child(1) > td:nth-child(1)")));
+				Actions builder = new Actions(driver);
+				IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(1)"));
+				builder.MoveToElement(element).Build().Perform();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(adjustInventoryButton));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((adjustInventoryButton)));
+				driver.FindElement(adjustInventoryButton).Click();
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(quantityField));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
-			driver.FindElement(quantityField).SendKeys("1");
-			Thread.Sleep(1000);
-			driver.FindElement(saveButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(FirstProduct));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((FirstProduct)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(quantityField));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((quantityField)));
+				driver.FindElement(quantityField).SendKeys("1");
+				Thread.Sleep(1000);
+				driver.FindElement(saveButton).Click();
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(FirstProduct));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((FirstProduct)));
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully made an adjustment."), actualvalue + " doesn't contains");
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
+				Assert.True(actualvalue.Contains("You have successfully made an adjustment."), actualvalue + " doesn't contains");
+				Thread.Sleep(3000);
+				wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((InventoryScreenButton)));
 
+			}
 		}
 
 	}

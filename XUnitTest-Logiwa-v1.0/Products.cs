@@ -9,11 +9,12 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium.Interactions;
 
-namespace NUnitTest_Logiwa_v1._0
+namespace XUnitTest_Logiwa_v1._0
 {
 	public class Products : Base
 	{
 
+		public static By MainInventoryScreenButton = By.Id("navbarDropdownInventory");
 		public static By ProductsScreenButton = By.XPath("//a[contains(text(),'Products')]");
 		public static By createProductButton = By.XPath("//button[contains(.,'Create Product')]");
 		public static By sku = By.Name("sku");
@@ -42,240 +43,343 @@ namespace NUnitTest_Logiwa_v1._0
 		public static By ProductTypeArea2 = By.CssSelector(".k-animation-container .k-list-filter .k-textbox");
 		public static By clickProductType = By.Id("btnCreateProductTypeName");
 		public static By productSaveButton = By.XPath("//button[contains(.,'SAVE')]");
-		public static By deleteProductButton = By.XPath("//button[contains(.,'Delete')]");
+		public static By deleteProductButton = By.XPath("//button[@id='productGridDeleteButton']/i");
 		public static By sureDeleteYes = By.XPath("//button[contains(.,'YES')]");
 		public static By editProductButton = By.XPath("//button[contains(.,'Edit')]");
 
-		//sometimes the system gives 500
 
 		[Fact]
-		public void CreateProductNoQuantity()
+		public void CreateProductWithoutQuantity()
 		{
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-			Guid demoGuid = Guid.NewGuid();
+			using (var driver = new ChromeDriver())
+			{
+				var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+				Run(driver, wait);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
-			driver.FindElement(ProductsScreenButton).Click();
+				Guid demoGuid = Guid.NewGuid();
 
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+				driver.FindElement(MainInventoryScreenButton).Click();
+				wait.Until(driver => driver.FindElement(ProductsScreenButton).Displayed);
+				driver.FindElement(ProductsScreenButton).Click();
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((createProductButton)));
-			driver.FindElement(createProductButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((sku)));
-			driver.FindElement(sku).SendKeys("SKU" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((name)));
-			driver.FindElement(name).SendKeys("Name" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((packType)));
-			driver.FindElement(packType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((packTypeEmptyArea)));
-			driver.FindElement(packTypeEmptyArea).SendKeys("piece" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((createPackType)));
-			driver.FindElement(createPackType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((weightField)));
-			driver.FindElement(weightField).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((initialQuantity)));
-			driver.FindElement(initialQuantity).FindElement(By.ClassName("k-input")).SendKeys("");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addAnImage)));
-			driver.FindElement(addAnImage).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((productImage)));
-			driver.FindElement(productImage)
-				.SendKeys("https://d163axztg8am2h.cloudfront.net/static/img/25/67/ca511d852e4dc7a82ef7011da33d.jpg");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((productImageAddButton)));
-			driver.FindElement(productImageAddButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((descriptionArea)));
-			driver.FindElement(descriptionArea).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((EditdesriptArea)));
-			driver.FindElement(EditdesriptArea).SendKeys("This is a description of the test case.");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addSalesPriceButton)));
-			driver.FindElement(addSalesPriceButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((salesPriceArea)));
-			driver.FindElement(salesPriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addPurchaseButton)));
-			driver.FindElement(addPurchaseButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((purchasePriceArea)));
-			driver.FindElement(purchasePriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addTaxRateButton)));
-			driver.FindElement(addTaxRateButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((taxRateArea)));
-			driver.FindElement(taxRateArea).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addUPCButton)));
-			driver.FindElement(addUPCButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((uPCArea)));
-			driver.FindElement(uPCArea).SendKeys("UPC-1");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddProductType)));
-			driver.FindElement(AddProductType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductTypeArea)));
-			driver.FindElement(ProductTypeArea).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductTypeArea2)));
-			driver.FindElement(ProductTypeArea2).SendKeys("producttype" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((clickProductType)));
-			driver.FindElement(clickProductType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((productSaveButton)));
-			driver.FindElement(productSaveButton).Click();
+				Thread.Sleep(3000);
 
+				wait.Until(driver => driver.FindElement(createProductButton).Displayed);
+				driver.FindElement(createProductButton).Click();
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				wait.Until(driver => driver.FindElement(sku).Displayed);
+				driver.FindElement(sku).SendKeys("SKU" + demoGuid);
 
+				wait.Until(driver => driver.FindElement(name).Displayed);
+				driver.FindElement(name).SendKeys("Name" + demoGuid);
 
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				wait.Until(driver => driver.FindElement(packType).Displayed);
+				driver.FindElement(packType).Click();
 
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully created a new product."), actualvalue + " doesn't contains");
+				wait.Until(driver => driver.FindElement(packTypeEmptyArea).Displayed);
+				driver.FindElement(packTypeEmptyArea).SendKeys("piece" + demoGuid);
 
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
+				wait.Until(driver => driver.FindElement(createPackType).Displayed);
+				driver.FindElement(createPackType).Click();
+
+				wait.Until(driver => driver.FindElement(weightField).Displayed);
+				driver.FindElement(weightField).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(initialQuantity).Displayed);
+				driver.FindElement(initialQuantity).FindElement(By.ClassName("k-input")).SendKeys("0");
+
+				wait.Until(driver => driver.FindElement(addAnImage).Displayed);
+				driver.FindElement(addAnImage).Click();
+
+				wait.Until(driver => driver.FindElement(productImage).Displayed);
+				driver.FindElement(productImage)
+					.SendKeys("https://d163axztg8am2h.cloudfront.net/static/img/25/67/ca511d852e4dc7a82ef7011da33d.jpg");
+
+				wait.Until(driver => driver.FindElement(productImageAddButton).Displayed);
+				driver.FindElement(productImageAddButton).Click();
+
+				wait.Until(driver => driver.FindElement(descriptionArea).Displayed);
+				driver.FindElement(descriptionArea).Click();
+
+				wait.Until(driver => driver.FindElement(EditdesriptArea).Displayed);
+				driver.FindElement(EditdesriptArea).SendKeys("This is a description of the test case.");
+
+				wait.Until(driver => driver.FindElement(addSalesPriceButton).Displayed);
+				driver.FindElement(addSalesPriceButton).Click();
+
+				wait.Until(driver => driver.FindElement(salesPriceArea).Displayed);
+				driver.FindElement(salesPriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addPurchaseButton).Displayed);
+				driver.FindElement(addPurchaseButton).Click();
+
+				wait.Until(driver => driver.FindElement(purchasePriceArea).Displayed);
+				driver.FindElement(purchasePriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addTaxRateButton).Displayed);
+				driver.FindElement(addTaxRateButton).Click();
+
+				wait.Until(driver => driver.FindElement(taxRateArea).Displayed);
+				driver.FindElement(taxRateArea).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addUPCButton).Displayed);
+				driver.FindElement(addUPCButton).Click();
+
+				wait.Until(driver => driver.FindElement(uPCArea).Displayed);
+				driver.FindElement(uPCArea).SendKeys("UPC-1");
+
+				wait.Until(driver => driver.FindElement(AddProductType).Displayed);
+				driver.FindElement(AddProductType).Click();
+
+				wait.Until(driver => driver.FindElement(ProductTypeArea).Displayed);
+				driver.FindElement(ProductTypeArea).Click();
+
+				wait.Until(driver => driver.FindElement(ProductTypeArea2).Displayed);
+				driver.FindElement(ProductTypeArea2).SendKeys("producttype" + demoGuid);
+
+				wait.Until(driver => driver.FindElement(clickProductType).Displayed);
+				driver.FindElement(clickProductType).Click();
+
+				wait.Until(driver => driver.FindElement(productSaveButton).Displayed);
+				driver.FindElement(productSaveButton).Click();
+
+				wait.Until(driver => driver.FindElement(By.CssSelector(".k-notification-wrap")).Displayed);
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-wrap"));
+
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-wrap")).Text;
+				Assert.True(actualvalue.Contains("You have successfully created a new product."), actualvalue + " doesn't contains");
+
+				Thread.Sleep(3000);
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+			}
 		}
-
+		   
 		[Fact]
 		public void DeleteProduct()
 		{
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
-			driver.FindElement(ProductsScreenButton).Click();
+			using (var driver = new ChromeDriver())
+			{
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("tr:nth-child(1) > td:nth-child(3)")));
-			Actions builder = new Actions(driver);
-			IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(3)"));
-			builder.MoveToElement(element).Build().Perform();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((deleteProductButton)));
-			driver.FindElement(deleteProductButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((sureDeleteYes)));
-			driver.FindElement(sureDeleteYes).Click();
+				var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+				Run(driver, wait);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-wrap")));
+				Guid demoGuid = Guid.NewGuid();
 
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-wrap"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+				driver.FindElement(MainInventoryScreenButton).Click();
+				wait.Until(driver => driver.FindElement(ProductsScreenButton).Displayed);
+				driver.FindElement(ProductsScreenButton).Click();
 
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-wrap")).Text;
-			Assert.True(actualvalue.Contains("Product delete operation successfully completed."), actualvalue + " doesn't contains");
+				Thread.Sleep(3000);
 
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
+				wait.Until(driver => driver.FindElement(createProductButton).Displayed);
+				driver.FindElement(createProductButton).Click();
 
+				wait.Until(driver => driver.FindElement(sku).Displayed);
+				driver.FindElement(sku).SendKeys("SKU" + demoGuid);
 
+				wait.Until(driver => driver.FindElement(name).Displayed);
+				driver.FindElement(name).SendKeys("Name" + demoGuid);
+
+				wait.Until(driver => driver.FindElement(packType).Displayed);
+				driver.FindElement(packType).Click();
+
+				wait.Until(driver => driver.FindElement(packTypeEmptyArea).Displayed);
+				driver.FindElement(packTypeEmptyArea).SendKeys("piece" + demoGuid);
+
+				wait.Until(driver => driver.FindElement(createPackType).Displayed);
+				driver.FindElement(createPackType).Click();
+
+				wait.Until(driver => driver.FindElement(AddProductType).Displayed);
+				driver.FindElement(AddProductType).Click();
+
+				wait.Until(driver => driver.FindElement(ProductTypeArea).Displayed);
+				driver.FindElement(ProductTypeArea).Click();
+
+				wait.Until(driver => driver.FindElement(ProductTypeArea2).Displayed);
+				driver.FindElement(ProductTypeArea2).SendKeys("producttype" + demoGuid);
+
+				wait.Until(driver => driver.FindElement(clickProductType).Displayed);
+				driver.FindElement(clickProductType).Click();
+
+				wait.Until(driver => driver.FindElement(productSaveButton).Displayed);
+				driver.FindElement(productSaveButton).Click();
+
+				Thread.Sleep(3000);
+		
+				wait.Until(driver => driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(3)")).Displayed);
+				Actions builder = new Actions(driver);
+				IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(3)"));
+				builder.MoveToElement(element).Build().Perform();
+
+				wait.Until(driver => driver.FindElement(deleteProductButton).Displayed);
+				driver.FindElement(deleteProductButton).Click();
+
+				wait.Until(driver => driver.FindElement(sureDeleteYes).Displayed);
+				driver.FindElement(sureDeleteYes).Click();
+				Thread.Sleep(2000);
+
+				wait.Until(driver => driver.FindElement(By.CssSelector(".k-notification-content")).Displayed);
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
+
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
+				Assert.True(actualvalue.Contains("Product delete operation successfully completed."), actualvalue + " doesn't contains");
+
+				Thread.Sleep(3000);
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+
+			}
 		}
 
 		[Fact]
 		public void CreateProductWithInitialQuantity()
 		{
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-			Guid demoGuid = Guid.NewGuid();
+			using (var driver = new ChromeDriver())
+			{
+				var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+				Run(driver, wait);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
-			driver.FindElement(ProductsScreenButton).Click();
+				Guid demoGuid = Guid.NewGuid();
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((createProductButton)));
-			driver.FindElement(createProductButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((sku)));
-			driver.FindElement(sku).SendKeys("SKU" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((name)));
-			driver.FindElement(name).SendKeys("Name" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((packType)));
-			driver.FindElement(packType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((packTypeEmptyArea)));
-			driver.FindElement(packTypeEmptyArea).SendKeys("piece" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((createPackType)));
-			driver.FindElement(createPackType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((weightField)));
-			driver.FindElement(weightField).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((initialQuantity)));
-			driver.FindElement(initialQuantity).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addAnImage)));
-			driver.FindElement(addAnImage).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((productImage)));
-			driver.FindElement(productImage)
-				.SendKeys("https://d163axztg8am2h.cloudfront.net/static/img/25/67/ca511d852e4dc7a82ef7011da33d.jpg");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((productImageAddButton)));
-			driver.FindElement(productImageAddButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((descriptionArea)));
-			driver.FindElement(descriptionArea).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((EditdesriptArea)));
-			driver.FindElement(EditdesriptArea).SendKeys("This is a description of the test case.");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addSalesPriceButton)));
-			driver.FindElement(addSalesPriceButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((salesPriceArea)));
-			driver.FindElement(salesPriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addPurchaseButton)));
-			driver.FindElement(addPurchaseButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((purchasePriceArea)));
-			driver.FindElement(purchasePriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addTaxRateButton)));
-			driver.FindElement(addTaxRateButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((taxRateArea)));
-			driver.FindElement(taxRateArea).FindElement(By.ClassName("k-input")).SendKeys("10");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((addUPCButton)));
-			driver.FindElement(addUPCButton).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((uPCArea)));
-			driver.FindElement(uPCArea).SendKeys("UPC-1");
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((AddProductType)));
-			driver.FindElement(AddProductType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductTypeArea)));
-			driver.FindElement(ProductTypeArea).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductTypeArea2)));
-			driver.FindElement(ProductTypeArea2).SendKeys("producttype" + demoGuid);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((clickProductType)));
-			driver.FindElement(clickProductType).Click();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((productSaveButton)));
-			driver.FindElement(productSaveButton).Click();
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+				driver.FindElement(MainInventoryScreenButton).Click();
+				wait.Until(driver => driver.FindElement(ProductsScreenButton).Displayed);
+				driver.FindElement(ProductsScreenButton).Click();
 
+				Thread.Sleep(3000);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				wait.Until(driver => driver.FindElement(createProductButton).Displayed);	
+				driver.FindElement(createProductButton).Click();
 
+				wait.Until(driver => driver.FindElement(sku).Displayed);
+				driver.FindElement(sku).SendKeys("SKU" + demoGuid);
 
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				wait.Until(driver => driver.FindElement(name).Displayed);
+				driver.FindElement(name).SendKeys("Name" + demoGuid);
 
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully created a new product."), actualvalue + " doesn't contains");
+				wait.Until(driver => driver.FindElement(packType).Displayed);
+				driver.FindElement(packType).Click();
 
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
+				wait.Until(driver => driver.FindElement(packTypeEmptyArea).Displayed);
+				driver.FindElement(packTypeEmptyArea).SendKeys("piece" + demoGuid);
 
+				wait.Until(driver => driver.FindElement(createPackType).Displayed);
+				driver.FindElement(createPackType).Click();
+
+				wait.Until(driver => driver.FindElement(weightField).Displayed);
+				driver.FindElement(weightField).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(initialQuantity).Displayed);
+				driver.FindElement(initialQuantity).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addAnImage).Displayed);
+				driver.FindElement(addAnImage).Click();
+
+				wait.Until(driver => driver.FindElement(productImage).Displayed);
+				driver.FindElement(productImage)
+					.SendKeys("https://d163axztg8am2h.cloudfront.net/static/img/25/67/ca511d852e4dc7a82ef7011da33d.jpg");
+
+				wait.Until(driver => driver.FindElement(productImageAddButton).Displayed);
+				driver.FindElement(productImageAddButton).Click();
+
+				wait.Until(driver => driver.FindElement(descriptionArea).Displayed);
+				driver.FindElement(descriptionArea).Click();
+
+				wait.Until(driver => driver.FindElement(EditdesriptArea).Displayed);
+				driver.FindElement(EditdesriptArea).SendKeys("This is a description of the test case.");
+
+				wait.Until(driver => driver.FindElement(addSalesPriceButton).Displayed);
+				driver.FindElement(addSalesPriceButton).Click();
+
+				wait.Until(driver => driver.FindElement(salesPriceArea).Displayed);
+				driver.FindElement(salesPriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addPurchaseButton).Displayed);
+				driver.FindElement(addPurchaseButton).Click();
+
+				wait.Until(driver => driver.FindElement(purchasePriceArea).Displayed);
+				driver.FindElement(purchasePriceArea).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addTaxRateButton).Displayed);
+				driver.FindElement(addTaxRateButton).Click();
+
+				wait.Until(driver => driver.FindElement(taxRateArea).Displayed);
+				driver.FindElement(taxRateArea).FindElement(By.ClassName("k-input")).SendKeys("10");
+
+				wait.Until(driver => driver.FindElement(addUPCButton).Displayed);
+				driver.FindElement(addUPCButton).Click();
+
+				wait.Until(driver => driver.FindElement(uPCArea).Displayed);
+				driver.FindElement(uPCArea).SendKeys("UPC-1");
+
+				wait.Until(driver => driver.FindElement(AddProductType).Displayed);
+				driver.FindElement(AddProductType).Click();
+
+				wait.Until(driver => driver.FindElement(ProductTypeArea).Displayed);
+				driver.FindElement(ProductTypeArea).Click();
+
+				wait.Until(driver => driver.FindElement(ProductTypeArea2).Displayed);
+				driver.FindElement(ProductTypeArea2).SendKeys("producttype" + demoGuid);
+
+				wait.Until(driver => driver.FindElement(clickProductType).Displayed);
+				driver.FindElement(clickProductType).Click();
+
+				wait.Until(driver => driver.FindElement(productSaveButton).Displayed);
+				driver.FindElement(productSaveButton).Click();
+
+				wait.Until(driver => driver.FindElement(By.CssSelector(".k-notification-wrap")).Displayed);
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-wrap"));
+
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-wrap")).Text;
+				Assert.True(actualvalue.Contains("You have successfully created a new product."), actualvalue + " doesn't contains");
+
+				Thread.Sleep(3000);
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+			}
 		}
 
 		[Fact]
 		public void EditProduct()
 		{
-			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-			Guid demoGuid = Guid.NewGuid();
+			using (var driver = new ChromeDriver())
+			{
+				var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+				Run(driver, wait);
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("/en/wms/dashboard"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
-			driver.FindElement(ProductsScreenButton).Click();
+				Guid demoGuid = Guid.NewGuid();
 
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("tr:nth-child(1) > td:nth-child(3)")));
-			Actions builder = new Actions(driver);
-			IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(3)"));
-			builder.MoveToElement(element).Build().Perform();
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((deleteProductButton)));
-			driver.FindElement(editProductButton).Click();
-			//driver.FindElement(sku).SendKeys(Keys.Chord(Keys.CONTROL, "a", Keys.DELETE));
-			driver.FindElement(sku).SendKeys("EDSKU" + demoGuid);
-			driver.FindElement(productSaveButton).Click();
-
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".k-notification-content")));
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+				driver.FindElement(MainInventoryScreenButton).Click();
+				wait.Until(driver => driver.FindElement(ProductsScreenButton).Displayed);
+				driver.FindElement(ProductsScreenButton).Click();
+				Thread.Sleep(3000);
 
 
-			IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-content"));
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(AssertInput));
+				wait.Until(driver => driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(3)")).Displayed);
+				Actions builder = new Actions(driver);
+				IWebElement element = driver.FindElement(By.CssSelector("tr:nth-child(1) > td:nth-child(3)"));
+				builder.MoveToElement(element).Build().Perform();
 
-			string actualvalue = driver.FindElement(By.CssSelector(".k-notification-content")).Text;
-			Assert.True(actualvalue.Contains("You have successfully created a new product."), actualvalue + " doesn't contains");
+				wait.Until(driver => driver.FindElement(editProductButton).Displayed);
+				driver.FindElement(editProductButton).Click();
+				Thread.Sleep(2000);
+				wait.Until(driver => driver.FindElement(sku).Displayed);
+				//driver.FindElement(sku).SendKeys(Keys.Chord(Keys.CONTROL, "a", Keys.DELETE));
+				driver.FindElement(sku).SendKeys("EDSKU" + demoGuid);
+				driver.FindElement(productSaveButton).Click();
 
-			Thread.Sleep(3000);
-			wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable((ProductsScreenButton)));
+				wait.Until(driver => driver.FindElement(By.CssSelector(".k-notification-content")).Displayed);
+				wait.Until(driver => driver.FindElement(By.CssSelector(".k-notification-wrap")).Displayed);
+				IWebElement AssertInput = driver.FindElement(By.CssSelector(".k-notification-wrap"));
 
+				string actualvalue = driver.FindElement(By.CssSelector(".k-notification-wrap")).Text;
+				Assert.True(actualvalue.Contains("You have successfully created a new product."), actualvalue + " doesn't contains");
 
-		}
+				Thread.Sleep(3000);
+				wait.Until(driver => driver.FindElement(MainInventoryScreenButton).Displayed);
+			}
 
-		[Fact]
-		public void DeleteProduct2()
-		{
-			DeleteProduct();
 		}
 
 	}
