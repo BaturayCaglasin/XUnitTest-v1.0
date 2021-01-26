@@ -47,7 +47,7 @@ namespace XUnitTest_Logiwa_v1._0
             Thread.Sleep(1000);
             wait.Until(driver => driver.FindElement(agreeTermsField).Displayed);
             driver.FindElement(agreeTermsField).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(5000);
             wait.Until(driver => driver.FindElement(submitButtonforSignUp).Displayed);
             driver.FindElement(submitButtonforSignUp).Click();
 
